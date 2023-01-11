@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { debounceTime,tap } from 'rxjs';
+import { debounceTime,tap,BehaviorSubject } from 'rxjs';
+import { CurrencyService } from '../../services/currency.service';
 
 @Component({
   selector: 'app-currency-front',
@@ -9,18 +10,18 @@ import { debounceTime,tap } from 'rxjs';
 })
 export class CurrencyFrontComponent implements OnInit {
   public form = new FormGroup({
-    amountGEL: new FormControl<number>(0),
-    amountUSD: new FormControl<number>(0)
+    amountGEL: new FormControl<number>(0)
    })
-   @Output() gel = new EventEmitter<number>();
-   @Input() usd = 0;
+   @Output() gelAmount = new EventEmitter<number>();
+   @Input() usd:BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
-  constructor() { 
-   
+  constructor(public srv:CurrencyService) { 
+      
   }
  
 
   ngOnInit(): void {
+    // this.usd = this.srv.result;
     this.registerValueChanges();
   }
 
@@ -29,10 +30,12 @@ export class CurrencyFrontComponent implements OnInit {
       .pipe(
         debounceTime(200),
         tap(()=>{
-          this.gel.emit(this.amountGEL.getRawValue());
-          // this.amountUSD.setValue(Number(this.usd));
+          this.gelAmount.emit(this.amountGEL.getRawValue());
         })
+
       ).subscribe();
+
+      this.amountGEL.updateValueAndValidity();
   }
 
 
@@ -40,9 +43,5 @@ export class CurrencyFrontComponent implements OnInit {
   get amountGEL(): FormControl<number> {
     return this.form.get('amountGEL') as FormControl<number>;
   }
-
-  // get amountUSD(): FormControl<number> {
-  //   return this.form.get('amountUSD') as FormControl<number>;
-  // }
 
 }

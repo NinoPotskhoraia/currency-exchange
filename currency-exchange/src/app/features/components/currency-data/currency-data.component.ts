@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { tap } from 'rxjs';
+import { BehaviorSubject, tap } from 'rxjs';
 import { CurrencyService } from '../../services/currency.service';
 
 @Component({
@@ -9,20 +9,20 @@ import { CurrencyService } from '../../services/currency.service';
 })
 export class CurrencyDataComponent implements OnInit {
 
-  constructor(private currencyService:CurrencyService) { }
+  constructor(public currencyService:CurrencyService) { }
 
   ngOnInit(): void {
+    // this.result = this.currencyService.result;
   }
 
   
-  result = 0;
+ public result:BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
  public calculate(gelToConvert:number){
-     this.currencyService.getCurrency()
+    this.currencyService.getCurrency()
      .pipe(
       tap(response=>{
-        this.result = response.coversion_rate * gelToConvert;
-        console.log(typeof response.conversion_rate);
+        this.result.next(Number((response.conversion_rate * gelToConvert).toFixed(2)));
         
       })
      ).subscribe();
