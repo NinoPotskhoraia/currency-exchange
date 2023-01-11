@@ -1,1 +1,15 @@
-<p>currency-front works!</p>
+<form [formGroup]="form">
+    <div class="container">
+        <div class="left">
+            <!-- <input type="text"  formControlName="currency1"> -->
+            <label for="gel">GEL</label>
+            <input type="number" id="gel" formControlName="amountGEL">
+        </div>
+        <div class="right">
+            <!-- <input type="text" formControlName="currency2"> -->
+            <label for="usd">USD</label>
+            <!-- <input  type="number" id="usd" formControlName="amountUSD"> -->
+            <span>{{usd}}</span>
+        </div>
+    </div>
+</form>

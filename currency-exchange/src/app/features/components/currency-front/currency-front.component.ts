@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { debounceTime,tap } from 'rxjs';
 
 @Component({
   selector: 'app-currency-front',
@@ -8,34 +9,40 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class CurrencyFrontComponent implements OnInit {
   public form = new FormGroup({
-    currency1: new FormControl('', [Validators.required, Validators.pattern(/^(GEL|USD)$/)]),
-    amount1: new FormControl(''),
-    currency2: new FormControl('', [Validators.required, Validators.pattern(/^(GEL|USD)$/)]),
-    amount2: new FormControl('')
+    amountGEL: new FormControl<number>(0),
+    amountUSD: new FormControl<number>(0)
    })
+   @Output() gel = new EventEmitter<number>();
+   @Input() usd = 0;
 
-  constructor() { }
+  constructor() { 
+   
+  }
+ 
 
   ngOnInit(): void {
     this.registerValueChanges();
   }
 
   public registerValueChanges(){
-
+    this.amountGEL.valueChanges
+      .pipe(
+        debounceTime(200),
+        tap(()=>{
+          this.gel.emit(this.amountGEL.getRawValue());
+          // this.amountUSD.setValue(Number(this.usd));
+        })
+      ).subscribe();
   }
 
 
-  get currency1(): FormControl {
-    return this.form.get('currency1') as FormControl;
+ 
+  get amountGEL(): FormControl<number> {
+    return this.form.get('amountGEL') as FormControl<number>;
   }
-  get amount1(): FormControl {
-    return this.form.get('amount1') as FormControl;
-  }
-  get currency2(): FormControl {
-    return this.form.get('currency2') as FormControl;
-  }
-  get amount2(): FormControl {
-    return this.form.get('amount2') as FormControl;
-  }
+
+  // get amountUSD(): FormControl<number> {
+  //   return this.form.get('amountUSD') as FormControl<number>;
+  // }
 
 }
