@@ -1,1 +1,107 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:'Oswald', sans-serif;
+    background-image: url('./assets/img/pexels-lukas-1420702.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height:100vh;
+    width:100vw;
+    overflow-x: hidden;
+
+    section{
+        height:100vh;
+        margin:0 auto;
+        display:grid;
+        place-items: center;
+
+        .container{
+            display:flex;
+            width:50vw;
+            justify-content: space-around;
+
+
+            .left{
+                display:flex;
+                align-items:center;
+
+
+                input[type="number"]{
+                    border:2px solid #2f3e46;
+                    border-radius: 5px;
+                    font-size:inherit;
+                    text-align: center;
+                    background-color: transparent;
+                    height:40px;
+                    width:50px;
+                }
+                
+                input::-webkit-outer-spin-button,
+                input::-webkit-inner-spin-button {
+                  -webkit-appearance: none !important;
+                  margin: 0 !important;
+                }
+
+                label,input{
+                    color:#2f3e46;
+                }
+            }
+
+            label, span{
+                font-size:46px;
+                margin-right: 50px;
+            }
+            
+            
+            
+            span{
+                color:#52796f;
+            }
+            
+        }
+    }
+    
+}
+
+
+
+@media(max-width:1400px){
+    .container{
+        flex-direction: column;
+        text-align: center;
+        width:100%;
+
+        .left,
+        .right{
+            width:100%;
+        }
+
+        .left{
+            align-items: center;
+            justify-content: center;
+
+            label{
+                margin-right: 40px;
+            }
+        }
+
+        .right span:nth-child(2){
+            margin-right: 0;
+        }
+
+        .right span:first-child{
+            margin-right: 52px;
+        }
+
+
+    }
+
+}
