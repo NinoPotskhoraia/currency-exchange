@@ -12,13 +12,13 @@ export class CurrencyDataComponent implements OnInit {
   constructor(public currencyService:CurrencyService) { }
 
   ngOnInit(): void {
-    // this.result = this.currencyService.result;
+
   }
 
   
  public result:BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
- public calculate(gelToConvert:number){
+ public calculateFromGel(gelToConvert:number){
     this.currencyService.getCurrency()
      .pipe(
       tap(response=>{
@@ -26,6 +26,15 @@ export class CurrencyDataComponent implements OnInit {
         
       })
      ).subscribe();
+  }
+
+  public calculateFromUsd(usdToConvert:number){
+    this.currencyService.getReverseCurrency()
+    .pipe(
+      tap(response=>{
+        this.result.next(Number((usdToConvert * response.conversion_rate).toFixed(2)));
+      })
+    ).subscribe();
   }
 
 }

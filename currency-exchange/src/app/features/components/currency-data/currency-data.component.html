@@ -1,7 +1,8 @@
 <section>
     <app-currency-front
-    (gelAmount)="calculate($event)"
-    [usd]="result"
+    (gelAmount)="calculateFromGel($event)"
+    (usdAmount)="calculateFromUsd($event)"
+    [res]="result"
     >
     </app-currency-front>
 </section>
