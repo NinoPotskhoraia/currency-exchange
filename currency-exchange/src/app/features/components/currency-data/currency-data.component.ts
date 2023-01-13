@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BehaviorSubject, tap } from 'rxjs';
 import { CurrencyService } from '../../services/currency.service';
 
 @Component({
   selector: 'app-currency-data',
   templateUrl: './currency-data.component.html',
-  styleUrls: ['./currency-data.component.scss']
+  styleUrls: ['./currency-data.component.scss'],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class CurrencyDataComponent implements OnInit {
 
