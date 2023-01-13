@@ -1,12 +1,16 @@
 <form [formGroup]="form">
     <div class="container">
         <div class="left">
-            <label for="gel">GEL</label>
-            <input (focus)="amountGEL.reset()" type="number" id="gel" formControlName="amountGEL">
+            <label for="sum">{{currencyFrom | async}}</label>
+            <input (focus)="amount.reset()" type="number" id="sum" formControlName="amount">
+        </div>
+        <div class="change">
+            <img (click)="changeCurrency()" src="../../../../assets/img/icons8-refresh-30.png" alt="refresh icon">
         </div>
         <div class="right">
-            <span>USD</span>
-            <span>{{usd | async}}</span>
+            <span>{{currencyTo | async}}</span>
+            <span>{{res | async}}</span>
         </div>
     </div>
 </form>
+

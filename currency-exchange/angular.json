@@ -100,6 +100,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "currency-exchange:build:production",
+            "firebaseProject": "currency-exchange-3117a",
+            "firebaseHostingSite": "currency-exchange-3117a"
+          }
         }
       }
     }

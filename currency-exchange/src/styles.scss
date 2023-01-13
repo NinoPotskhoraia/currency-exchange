@@ -18,7 +18,7 @@ body{
     overflow-x: hidden;
 
     section{
-        height:100vh;
+        height:100%;
         margin:0 auto;
         display:grid;
         place-items: center;
@@ -26,12 +26,15 @@ body{
         .container{
             display:flex;
             width:50vw;
-            justify-content: space-around;
+            justify-content: space-between;
+            align-items: center;
 
 
             .left{
                 display:flex;
                 align-items:center;
+                width:30%;
+                min-width:300px;
 
 
                 input[type="number"]{
@@ -55,6 +58,17 @@ body{
                 }
             }
 
+            .right{
+                width:30%;
+                min-width:300px;
+                text-align: end;
+                
+                span:last-child{
+                   margin-right: 0;
+                }
+
+            }
+
             label, span{
                 font-size:46px;
                 margin-right: 50px;
@@ -65,8 +79,20 @@ body{
             span{
                 color:#52796f;
             }
+
+            .change{
+                cursor: pointer;
+                width:30%;
+                text-align: center;
+                
+            }
             
         }
+
+            
+        
+
+        
     }
     
 }
@@ -76,12 +102,13 @@ body{
 @media(max-width:1400px){
     .container{
         flex-direction: column;
-        text-align: center;
         width:100%;
 
         .left,
-        .right{
+        .right,
+        .change{
             width:100%;
+            padding:20px;
         }
 
         .left{
@@ -93,13 +120,18 @@ body{
             }
         }
 
-        .right span:nth-child(2){
+        .right{
+           display:flex;
+           align-items: center;
+           justify-content: center;
+           span:nth-child(2){
             margin-right: 0;
         }
 
-        .right span:first-child{
+           span:first-child{
             margin-right: 52px;
         }
+    }
 
 
     }

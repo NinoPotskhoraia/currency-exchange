@@ -10,38 +10,58 @@ import { CurrencyService } from '../../services/currency.service';
 })
 export class CurrencyFrontComponent implements OnInit {
   public form = new FormGroup({
-    amountGEL: new FormControl<number>(0)
+    amount: new FormControl<number>(0)
    })
    @Output() gelAmount = new EventEmitter<number>();
-   @Input() usd:BehaviorSubject<number> = new BehaviorSubject<number>(0);
+   @Output() usdAmount = new EventEmitter<number>();
+   @Input() res:BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   constructor(public srv:CurrencyService) { 
       
   }
  
+  currencyFrom:BehaviorSubject<string> =  new BehaviorSubject<string>('GEL');
+  currencyTo:BehaviorSubject<string> =  new BehaviorSubject<string>('USD');
 
   ngOnInit(): void {
-    // this.usd = this.srv.result;
     this.registerValueChanges();
   }
 
+
+  public changeCurrency(){
+    if(this.currencyFrom.getValue() === 'GEL'){
+      this.currencyFrom.next('USD');
+      this.currencyTo.next('GEL');
+    }else{
+      this.currencyFrom.next('GEL');
+      this.currencyTo.next('USD');
+    }
+
+    this.amount.reset();
+    this.res.next(0);
+  }
+
   public registerValueChanges(){
-    this.amountGEL.valueChanges
+    this.amount.valueChanges
       .pipe(
         debounceTime(200),
         tap(()=>{
-          this.gelAmount.emit(this.amountGEL.getRawValue());
+          if(this.currencyFrom.getValue() === 'GEL'){
+          this.gelAmount.emit(this.amount.getRawValue());
+        }else{
+          this.usdAmount.emit(this.amount.getRawValue());
+        }
         })
 
       ).subscribe();
 
-      this.amountGEL.updateValueAndValidity();
+      this.amount.updateValueAndValidity();
   }
 
 
  
-  get amountGEL(): FormControl<number> {
-    return this.form.get('amountGEL') as FormControl<number>;
+  get amount(): FormControl<number> {
+    return this.form.get('amount') as FormControl<number>;
   }
 
 }

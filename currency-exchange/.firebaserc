@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "currency-exchange-3117a": {
+      "hosting": {
+        "currency-exchange": [
+          "currency-exchange-3117a"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "currency-exchange-3117a"
+  }
+}
